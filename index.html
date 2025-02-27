@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Duplicate Emails</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      textarea {
+        width: 100%;
+        height: 150px;
+      }
+      #duplicates {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Find Duplicate Emails</h2>
+    <textarea
+      id="emailInput"
+      placeholder="Enter emails separated by commas or new lines..."
+    ></textarea>
+    <button onclick="findDuplicates()">Check Duplicates</button>
+    <p id="duplicates"></p>
+
+    <script>
+      function findDuplicates() {
+        const input = document.getElementById("emailInput").value;
+        const emails = input
+          .split(/[\s,]+/)
+          .map((email) => email.trim().toLowerCase())
+          .filter((email) => email);
+
+        const emailCount = {};
+        const duplicates = new Set();
+
+        emails.forEach((email) => {
+          if (emailCount[email]) {
+            duplicates.add(email);
+          } else {
+            emailCount[email] = 1;
+          }
+        });
+
+        document.getElementById("duplicates").textContent = duplicates.size
+          ? "Duplicate emails: " + Array.from(duplicates).join(", ")
+          : "No duplicates found.";
+      }
+    </script>
+  </body>
+</html>
